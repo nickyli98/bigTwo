@@ -1,5 +1,6 @@
 package Game.Card;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,26 @@ public class CardUtils {
       newList.addLast(min);
     }
     return newList;
+  }
+
+  public static List<Card> getAllCards(int val, List<Card> cards){
+    List<Card> sameValue = new ArrayList<>();
+    for(Card c: cards){
+      if (c.getValue() == val){
+        sameValue.add(c);
+      }
+    }
+    return sameValue;
+  }
+
+  public static List<Card> getAllCards(Suit suit, List<Card> cards){
+    List<Card> sameValue = new ArrayList<>();
+    for(Card c: cards){
+      if (c.getSuit() == suit){
+        sameValue.add(c);
+      }
+    }
+    return sameValue;
   }
 
 }

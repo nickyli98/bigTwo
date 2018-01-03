@@ -34,9 +34,7 @@ public class MethodTests {
       assertNotNull(current.getNext(), "Circular array should iterate infinitely");
       current = current.getNext();
     }
-
     current = initial;
-
   }
 
   @Test

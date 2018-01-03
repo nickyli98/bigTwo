@@ -1,11 +1,11 @@
 package Game.Hand;
 
+import static Game.Constants.validAmounts;
+
 import Game.Card.Card;
 import Game.Card.Suit;
 import java.util.LinkedList;
 import java.util.List;
-
-import static Game.Constants.*;
 
 public class HandChecker {
 
@@ -21,18 +21,20 @@ public class HandChecker {
     if(amountOfCards == 5){
       return setHandCheck(cards, array);
     } else {
-      return duplicateHandCheck(array);
+      return duplicateHandCheck(array, amountOfCards);
     }
   }
 
   //Pre: size = 2, 3
-  private static HandEnum duplicateHandCheck(int[] valuesArray) {
+  private static HandEnum duplicateHandCheck(int[] valuesArray, int amountOfCards) {
     for(int i : valuesArray){
-      if(i == 2){
-        return HandEnum.Pair;
-      }
-      if(i == 3){
-        return HandEnum.Triples;
+      if(i == amountOfCards){
+        if(i == 2){
+          return HandEnum.Pair;
+        }
+        if(i == 3){
+          return HandEnum.Triples;
+        }
       }
     }
     return HandEnum.Invalid;
@@ -85,10 +87,10 @@ public class HandChecker {
     return false;
   }
 
-  private static int[] getValuesArray(List<Card> cards) {
+  static int[] getValuesArray(List<Card> cards) {
     int[] array = new int[13];
     for(Card c : cards){
-      array[c.getValue()]++;
+      array[c.getValue() - 1]++;
     }
     return array;
   }
@@ -101,6 +103,23 @@ public class HandChecker {
   private static boolean straightCheck(List<Card> cards) {
     int val = cards.get(0).getValue();
     for(int i = 1; i < 5; i++){
+      int cardVal = cards.get(i).getValue();
+      if(val == 5){
+        if(cardVal == 6 || cardVal == 1){
+          val = cardVal;
+          continue;
+        } else {
+          return false;
+        }
+      }
+      if(val == 6){
+        if(cardVal == 1 || cardVal == 7){
+          val = cardVal;
+          continue;
+        } else {
+          return false;
+        }
+      }
       if(val != 13){
         if(++val != cards.get(i).getValue()){
           return false;

@@ -8,4 +8,8 @@ public enum Suit {
   Suit(int rank){
     this.rank = rank;
   }
+
+  public int getValue() {
+    return rank;
+  }
 }

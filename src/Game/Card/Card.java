@@ -18,6 +18,15 @@ public class Card {
     return suit;
   }
 
+  public int getCardValue(){
+    int val = value;
+    if(val == 1 || val == 2){
+      val += 13;
+    }
+    val -= 3;
+    return val * 4 + suit.getValue();
+  }
+
   @Override
   public String toString(){
     String val;
@@ -39,5 +48,19 @@ public class Card {
         break;
     }
     return val + " - " + suit.toString();
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Card){
+      Card c = (Card) obj;
+      return c.getSuit() == this.getSuit() && c.getValue() == this.getValue();
+    }
+    return false;
   }
 }
